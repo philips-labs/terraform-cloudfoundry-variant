@@ -14,26 +14,14 @@ variable "name_postfix" {
   default     = ""
 }
 
-variable "thanos_image" {
+variable "variant_image" {
   description = "Image to use for Thanos app. Use a v* tagged version to prevent automatic updates"
-  default     = "philipslabs/cf-thanos:v5.0.1"
+  default     = "philipslabs/cf-variant:v5.0.1"
   type        = string
 }
 
-variable "thanos_query_image" {
-  description = "Image to use for Thanos query. Use a v* tagged version to prevent automatic updates"
-  default     = "philipslabs/cf-thanos:v5.0.1"
-  type        = string
-}
-
-variable "thanos_store_image" {
-  description = "Image to use for Thanos store. Use a v* tagged version to prevent automatic updates"
-  default     = "philipslabs/cf-thanos:v5.0.1"
-  type        = string
-}
-
-variable "thanos_public_endpoints" {
-  description = "Make Thanos public endpoint"
+variable "prometheus_public_endpoints" {
+  description = "prometheus public endpoint"
   type        = bool
   default     = false
 }
@@ -56,46 +44,16 @@ variable "docker_password" {
   default     = ""
 }
 
-variable "thanos_memory" {
+variable "prometheus_memory" {
   type        = number
-  description = "Thanos memory"
+  description = "Prometheus memory"
   default     = 1024
 }
 
-variable "thanos_disk_quota" {
+variable "prometheus_disk_quota" {
   type        = number
-  description = "Thanos disk quota"
+  description = "Prometheus disk quota"
   default     = 5000
-}
-
-variable "thanos_store_memory" {
-  type        = number
-  description = "Thanos store memory"
-  default     = 1536
-}
-
-variable "thanos_store_disk_quota" {
-  type        = number
-  description = "Thanos store disk quota"
-  default     = 5000
-}
-
-variable "thanos_file_sd_url" {
-  type        = string
-  description = "A URL that exposes a prometheus file_sd yaml file will be periodically downloaded and used for service discovery"
-  default     = ""
-}
-
-variable "enable_cf_exporter" {
-  type        = bool
-  description = "Enable the CloudFoundry metrics exporter and scrape it from Thanos"
-  default     = false
-}
-
-variable "thanos_extra_config" {
-  type        = string
-  description = "Any extra yaml config that will be merged into the prometheus config at runtime. Extra targets can be added here."
-  default     = ""
 }
 
 variable "tenants" {
@@ -118,26 +76,18 @@ variable "cf_functional_account" {
   }
 }
 
-variable "cf_paas_exporter_image" {
-  description = "Image to use for cf paas exporter. Use a v* tagged version to prevent automatic updates"
-  default     = "governmentpaas/paas-prometheus-exporter:latest"
-  type        = string
-}
-
-variable "cf_paas_exporter_memory" {
-  type        = number
-  description = "CF PaaS Exporter memory"
-  default     = 256
-}
-
-variable "cf_paas_exporter_disk_quota" {
-  type        = number
-  description = "CF PaaS Exporter disk quota"
-  default     = 100
-}
-
 variable "alertmanagers_endpoints" {
   type        = list(string)
   description = "List of endpoints of the alert managers"
   default     = []
+}
+
+variable "network_policies" {
+  description = "The container-to-container network policies to create with Grafana as the source app"
+  type = list(object({
+    destination_app = string
+    protocol        = string
+    port            = string
+  }))
+  default = []
 }

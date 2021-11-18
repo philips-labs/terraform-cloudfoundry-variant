@@ -1,5 +1,5 @@
 locals {
-  thanos_routes = var.thanos_public_endpoints ? [cloudfoundry_route.thanos.id, cloudfoundry_route.thanos_internal.id] : [cloudfoundry_route.thanos_internal.id]
+  prometheus_routes = var.prometheus_public_endpoints ? [cloudfoundry_route.prometheus.id, cloudfoundry_route.prometheus_internal.id] : [cloudfoundry_route.prometheus_internal.id]
   postfix       = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml", {
     alertmanagers = var.alertmanagers_endpoints
@@ -14,21 +14,18 @@ resource "random_password" "password" {
   length = 16
 }
 
-resource "cloudfoundry_app" "thanos" {
-  name         = "tf-thanos-${local.postfix}"
+resource "cloudfoundry_app" "prometheus" {
+  name         = "tf-prometheus-${local.postfix}"
   space        = var.cf_space_id
-  memory       = var.thanos_memory
-  disk_quota   = var.thanos_disk_quota
-  docker_image = var.thanos_image
+  memory       = var.prometheus_memory
+  disk_quota   = var.prometheus_disk_quota
+  docker_image = var.variant_image
   docker_credentials = {
     username = var.docker_username
     password = var.docker_password
   }
   command = "echo $PROMETHEUS_CONFIG_BASE64|base64 -d > /sidecars/etc/prometheus.default.yml && supervisord --nodaemon --configuration /etc/supervisord.conf"
   environment = merge({
-    FILESD_URL                 = var.thanos_file_sd_url
-    ENABLE_CF_EXPORTER         = var.enable_cf_exporter
-    PROMETHEUS_TARGETS         = base64encode(var.thanos_extra_config)
     PROMETHEUS_CONFIG_BASE64   = base64encode(local.prometheus_config)
     USERNAME                   = var.cf_functional_account.username
     PASSWORD                   = var.cf_functional_account.password
@@ -43,25 +40,39 @@ resource "cloudfoundry_app" "thanos" {
   }, var.environment)
 
   dynamic "routes" {
-    for_each = local.thanos_routes
+    for_each = local.prometheus_routes
     content {
       route = routes.value
     }
   }
-  //noinspection HCLUnknownBlockType
-  service_binding {
-    service_instance = cloudfoundry_service_instance.s3.id
-  }
 }
 
-resource "cloudfoundry_route" "thanos" {
+resource "cloudfoundry_route" "prometheus" {
   domain   = data.cloudfoundry_domain.app_domain.id
   space    = var.cf_space_id
-  hostname = "thanos-${local.postfix}"
+  hostname = "prometheus-${local.postfix}"
 }
 
-resource "cloudfoundry_route" "thanos_internal" {
+resource "cloudfoundry_route" "prometheus_internal" {
   domain   = data.cloudfoundry_domain.apps_internal_domain.id
   space    = var.cf_space_id
-  hostname = "thanos-${local.postfix}"
+  hostname = "prometheus-${local.postfix}"
+}
+
+resource "cloudfoundry_network_policy" "prometheus" {
+  count = length(var.network_policies) > 0 ? 1 : 0
+
+  dynamic "policy" {
+    for_each = [for p in var.network_policies : {
+      destination_app = p.destination_app
+      port            = p.port
+      protocol        = p.protocol
+    }]
+    content {
+      source_app      = cloudfoundry_app.prometheus.id
+      destination_app = policy.value.destination_app
+      protocol        = policy.value.protocol == "" ? "tcp" : policy.value.protocol
+      port            = policy.value.port
+    }
+  }
 }
