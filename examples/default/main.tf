@@ -1,8 +1,8 @@
-module "thanos" {
+module "variant" {
   source = "../../"
 
   cf_org_name = "demo"
-  cf_space_id = "test"
+  cf_space_id = data.cloudfoundry_space.space.id
 
   cf_functional_account = {
     api_endpoint = var.cf_api_url
