@@ -1,6 +1,8 @@
 module "variant" {
   source = "../../"
 
+  remote_write_config = file("remote_write.yaml")
+
   cf_org_name = var.cf_org_name
   cf_space_id = data.cloudfoundry_space.space.id
 

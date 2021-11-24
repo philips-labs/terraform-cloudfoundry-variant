@@ -12,3 +12,13 @@ variable "cf_password" {
   description = "Cloudfoundry password"
   type        = string
 }
+
+variable "cf_org_name" {
+  description = "Cloudfoundry ORG name"
+  type        = string
+}
+
+variable "cf_space_name" {
+  description = "Cloudfoundry SPACE name"
+  type        = string
+}

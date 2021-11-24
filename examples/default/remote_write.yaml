@@ -1,0 +1,5 @@
+remote_write:
+- url: "https://store.thanos.local"
+  basic_auth:
+    username: "foo"
+    password: "bar"
