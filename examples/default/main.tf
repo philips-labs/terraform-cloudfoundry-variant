@@ -1,7 +1,7 @@
 module "variant" {
   source = "../../"
 
-  cf_org_name = "demo"
+  cf_org_name = var.cf_org_name
   cf_space_id = data.cloudfoundry_space.space.id
 
   cf_functional_account = {
