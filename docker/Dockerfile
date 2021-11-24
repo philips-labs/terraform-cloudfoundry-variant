@@ -9,7 +9,7 @@ LABEL maintainer="andy.lo-a-foe@philips.com"
 RUN apk add --no-cache supervisor jq curl && rm -rf /tmp/* /var/cache/apk/*
 RUN apk add --no-cache yq --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
 
-RUN mkdir -p /sidecars/bin /sidecars/supervisor/conf.d sidecars/etc /prometheus
+RUN mkdir -p /sidecars/bin /sidecars/supervisor/conf.d /sidecars/etc /prometheus
 
 COPY --from=prometheus /bin/prometheus /sidecars/bin
 COPY --from=prometheus /bin/promtool   /bin
