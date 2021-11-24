@@ -28,3 +28,6 @@ scrape_configs:
   - job_name: 'variant'
     static_configs:
       - targets: ['localhost:1355']
+
+# Remote write configuration
+${remote_write_config}

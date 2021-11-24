@@ -1,8 +1,10 @@
 locals {
-  prometheus_routes = var.prometheus_public_endpoints ? [cloudfoundry_route.prometheus.id, cloudfoundry_route.prometheus_internal.id] : [cloudfoundry_route.prometheus_internal.id]
-  postfix       = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
+  empty_remote_write = yamlencode(jsondecode("{ \"remote_write\": null}"))
+  prometheus_routes  = var.prometheus_public_endpoints ? [cloudfoundry_route.prometheus.id, cloudfoundry_route.prometheus_internal.id] : [cloudfoundry_route.prometheus_internal.id]
+  postfix            = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml", {
-    alertmanagers = var.alertmanagers_endpoints
+    alertmanagers       = var.alertmanagers_endpoints
+    remote_write_config = var.remote_write_config == "" ? local.empty_remote_write : var.remote_write_config
   })
 }
 

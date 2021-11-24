@@ -68,12 +68,7 @@ variable "cf_functional_account" {
     username     = string
     password     = string
   })
-  description = "Configuration for the CloudFoundry function account. Required for variant and if enable_cf_exporter is set to true"
-  default = {
-    api_endpoint = ""
-    username     = ""
-    password     = ""
-  }
+  description = "Configuration for the CloudFoundry functional account. Required for variant."
 }
 
 variable "alertmanagers_endpoints" {
@@ -82,8 +77,13 @@ variable "alertmanagers_endpoints" {
   default     = []
 }
 
+variable "remote_write_config" {
+  type        = string
+  description = "The Promethues remote write section to inject"
+}
+
 variable "network_policies" {
-  description = "The container-to-container network policies to create with Grafana as the source app"
+  description = "The container-to-container network policies to create with Prometheus as the source app"
   type = list(object({
     destination_app = string
     protocol        = string
