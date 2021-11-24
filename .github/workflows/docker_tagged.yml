@@ -47,7 +47,7 @@ jobs:
           file: ./docker/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: philipslabs/cf-thanos:${{ steps.vars.outputs.tag }},docker.na1.hsdp.io/philipslabs/cf-thanos:${{ steps.vars.outputs.tag }}
+          tags: philipslabs/cf-variant:${{ steps.vars.outputs.tag }},docker.na1.hsdp.io/philipslabs/cf-variant:${{ steps.vars.outputs.tag }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
