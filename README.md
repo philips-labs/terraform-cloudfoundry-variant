@@ -30,17 +30,17 @@ module "variant" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
-| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.14.2 |
-| <a name="requirement_hsdp"></a> [hsdp](#requirement\_hsdp) | >= 0.18.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.4.2 |
+| <a name="requirement_hsdp"></a> [hsdp](#requirement\_hsdp) | >= 0.27.2 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.14.2 |
-| <a name="provider_hsdp"></a> [hsdp](#provider\_hsdp) | >= 0.18.1 |
+| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.4.2 |
+| <a name="provider_hsdp"></a> [hsdp](#provider\_hsdp) | >= 0.27.2 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.2.1 |
 
 ## Modules
@@ -67,17 +67,18 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_alertmanagers_endpoints"></a> [alertmanagers\_endpoints](#input\_alertmanagers\_endpoints) | List of endpoints of the alert managers | `list(string)` | `[]` | no |
-| <a name="input_cf_functional_account"></a> [cf\_functional\_account](#input\_cf\_functional\_account) | Configuration for the CloudFoundry function account. Required for variant and if enable\_cf\_exporter is set to true | <pre>object({<br>    api_endpoint = string<br>    username     = string<br>    password     = string<br>  })</pre> | <pre>{<br>  "api_endpoint": "",<br>  "password": "",<br>  "username": ""<br>}</pre> | no |
+| <a name="input_cf_functional_account"></a> [cf\_functional\_account](#input\_cf\_functional\_account) | Configuration for the CloudFoundry functional account. Required for variant. | <pre>object({<br>    api_endpoint = string<br>    username     = string<br>    password     = string<br>  })</pre> | n/a | yes |
 | <a name="input_cf_org_name"></a> [cf\_org\_name](#input\_cf\_org\_name) | Cloudfoundry ORG name to use for reverse proxy | `string` | n/a | yes |
 | <a name="input_cf_space_id"></a> [cf\_space\_id](#input\_cf\_space\_id) | Cloudfoundry SPACE id to use for deploying all Thanos components. | `string` | n/a | yes |
 | <a name="input_docker_password"></a> [docker\_password](#input\_docker\_password) | Docker registry password | `string` | `""` | no |
 | <a name="input_docker_username"></a> [docker\_username](#input\_docker\_username) | Docker registry username | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Pass environment variable to the app | `map(any)` | `{}` | no |
 | <a name="input_name_postfix"></a> [name\_postfix](#input\_name\_postfix) | The postfix string to append to the space, hostname, etc. Prevents namespace clashes | `string` | `""` | no |
-| <a name="input_network_policies"></a> [network\_policies](#input\_network\_policies) | The container-to-container network policies to create with Grafana as the source app | <pre>list(object({<br>    destination_app = string<br>    protocol        = string<br>    port            = string<br>  }))</pre> | `[]` | no |
+| <a name="input_network_policies"></a> [network\_policies](#input\_network\_policies) | The container-to-container network policies to create with Prometheus as the source app | <pre>list(object({<br>    destination_app = string<br>    protocol        = string<br>    port            = string<br>  }))</pre> | `[]` | no |
 | <a name="input_prometheus_disk_quota"></a> [prometheus\_disk\_quota](#input\_prometheus\_disk\_quota) | Prometheus disk quota | `number` | `5000` | no |
 | <a name="input_prometheus_memory"></a> [prometheus\_memory](#input\_prometheus\_memory) | Prometheus memory | `number` | `1024` | no |
 | <a name="input_prometheus_public_endpoints"></a> [prometheus\_public\_endpoints](#input\_prometheus\_public\_endpoints) | prometheus public endpoint | `bool` | `false` | no |
+| <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | n/a | yes |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v5.0.1"` | no |
 
