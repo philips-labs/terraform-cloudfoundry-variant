@@ -5,6 +5,7 @@ locals {
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml", {
     alertmanagers       = var.alertmanagers_endpoints
     remote_write_config = var.remote_write_config == "" ? local.empty_remote_write : var.remote_write_config
+    external_labels     = var.external_labels
   })
 }
 

@@ -29,7 +29,7 @@ variable "prometheus_public_endpoints" {
 variable "environment" {
   type        = map(any)
   description = "Pass environment variable to the app"
-  default     = {}
+  default = {}
 }
 
 variable "docker_username" {
@@ -75,6 +75,15 @@ variable "alertmanagers_endpoints" {
   type        = list(string)
   description = "List of endpoints of the alert managers"
   default     = []
+}
+
+variable "external_labels" {
+  type        = map(any)
+  description = "External labels to add"
+  default     = {
+    cluster = "thanos"
+    replica = "0"
+  }
 }
 
 variable "remote_write_config" {
