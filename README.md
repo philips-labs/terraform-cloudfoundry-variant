@@ -73,6 +73,7 @@ No modules.
 | <a name="input_docker_password"></a> [docker\_password](#input\_docker\_password) | Docker registry password | `string` | `""` | no |
 | <a name="input_docker_username"></a> [docker\_username](#input\_docker\_username) | Docker registry username | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Pass environment variable to the app | `map(any)` | `{}` | no |
+| <a name="input_external_labels"></a> [external\_labels](#input\_external\_labels) | External labels to add | `map(any)` | <pre>{<br>  "cluster": "thanos",<br>  "replica": "0"<br>}</pre> | no |
 | <a name="input_name_postfix"></a> [name\_postfix](#input\_name\_postfix) | The postfix string to append to the space, hostname, etc. Prevents namespace clashes | `string` | `""` | no |
 | <a name="input_network_policies"></a> [network\_policies](#input\_network\_policies) | The container-to-container network policies to create with Prometheus as the source app | <pre>list(object({<br>    destination_app = string<br>    protocol        = string<br>    port            = string<br>  }))</pre> | `[]` | no |
 | <a name="input_prometheus_disk_quota"></a> [prometheus\_disk\_quota](#input\_prometheus\_disk\_quota) | Prometheus disk quota | `number` | `5000` | no |
