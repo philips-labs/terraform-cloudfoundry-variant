@@ -81,7 +81,7 @@ No modules.
 | <a name="input_prometheus_public_endpoints"></a> [prometheus\_public\_endpoints](#input\_prometheus\_public\_endpoints) | prometheus public endpoint | `bool` | `false` | no |
 | <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | n/a | yes |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v5.0.1"` | no |
+| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.0.1"` | no |
 
 ## Outputs
 
