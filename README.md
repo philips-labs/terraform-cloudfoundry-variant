@@ -12,7 +12,7 @@ Setup for Prometheus + Variant on Cloudfoundry.
 ```
 module "variant" {
     source = "philips-labs/variant/cloudfoundry"
-    version = "1.0.0"
+    version = "6.0.1"
 
     cf_org_name        = var.cf_org_name
     cf_space_id        = var.cf_space_id
