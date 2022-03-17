@@ -33,16 +33,16 @@ module "variant" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.4.2 |
-| <a name="requirement_hsdp"></a> [hsdp](#requirement\_hsdp) | >= 0.27.2 |
+| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.14.2 |
+| <a name="requirement_hsdp"></a> [hsdp](#requirement\_hsdp) | >= 0.30.10 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.4.2 |
-| <a name="provider_hsdp"></a> [hsdp](#provider\_hsdp) | >= 0.27.2 |
+| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.14.2 |
+| <a name="provider_hsdp"></a> [hsdp](#provider\_hsdp) | >= 0.30.10 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.2.1 |
 
 ## Modules
@@ -82,6 +82,7 @@ No modules.
 | <a name="input_prometheus_memory"></a> [prometheus\_memory](#input\_prometheus\_memory) | Prometheus memory | `number` | `1024` | no |
 | <a name="input_prometheus_public_endpoints"></a> [prometheus\_public\_endpoints](#input\_prometheus\_public\_endpoints) | prometheus public endpoint | `bool` | `false` | no |
 | <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | n/a | yes |
+| <a name="input_spaces"></a> [spaces](#input\_spaces) | The list of CF space GUIDs to scrape. When provided variant will only consider apps in these spaces | `list(string)` | `[]` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.0.1"` | no |
 
