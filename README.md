@@ -14,6 +14,8 @@ module "variant" {
     source = "philips-labs/variant/cloudfoundry"
     version = "6.0.1"
 
+    remote_write_config = file("remote_write.yaml")
+
     cf_org_name        = var.cf_org_name
     cf_space_id        = var.cf_space_id
 
