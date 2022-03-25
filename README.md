@@ -84,7 +84,7 @@ No modules.
 | <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | n/a | yes |
 | <a name="input_spaces"></a> [spaces](#input\_spaces) | The list of CF space GUIDs to scrape. When provided variant will only consider apps in these spaces | `list(string)` | `[]` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.1.0"` | no |
+| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.1.1"` | no |
 
 ## Outputs
 
