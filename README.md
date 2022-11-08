@@ -103,7 +103,6 @@ Please post your questions on the HSDP Slack `#terraform` channel, or start a [d
 # License
 
 License is MIT
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -153,12 +152,15 @@ No modules.
 | <a name="input_docker_username"></a> [docker\_username](#input\_docker\_username) | Docker registry username | `string` | `""` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Pass environment variable to the app | `map(any)` | `{}` | no |
 | <a name="input_external_labels"></a> [external\_labels](#input\_external\_labels) | External labels to add | `map(any)` | <pre>{<br>  "cluster": "thanos",<br>  "replica": "0"<br>}</pre> | no |
+| <a name="input_mtls_cert"></a> [mtls\_cert](#input\_mtls\_cert) | Base64 encoded certificate for prometheus mtls communication | `string` | `""` | no |
+| <a name="input_mtls_private_key"></a> [mtls\_private\_key](#input\_mtls\_private\_key) | Base64 encoded private key for prometheus mtls communication | `string` | `""` | no |
 | <a name="input_name_postfix"></a> [name\_postfix](#input\_name\_postfix) | The postfix string to append to the space, hostname, etc. Prevents namespace clashes | `string` | `""` | no |
 | <a name="input_network_policies"></a> [network\_policies](#input\_network\_policies) | The container-to-container network policies to create with Prometheus as the source app | <pre>list(object({<br>    destination_app = string<br>    protocol        = string<br>    port            = string<br>  }))</pre> | `[]` | no |
 | <a name="input_prometheus_disk_quota"></a> [prometheus\_disk\_quota](#input\_prometheus\_disk\_quota) | Prometheus disk quota | `number` | `5000` | no |
 | <a name="input_prometheus_memory"></a> [prometheus\_memory](#input\_prometheus\_memory) | Prometheus memory | `number` | `1024` | no |
 | <a name="input_prometheus_public_endpoints"></a> [prometheus\_public\_endpoints](#input\_prometheus\_public\_endpoints) | prometheus public endpoint | `bool` | `false` | no |
-| <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | n/a | yes |
+| <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | `""` | no |
+| <a name="input_remote_write_url"></a> [remote\_write\_url](#input\_remote\_write\_url) | Remote write endpoint for prometheus tls communication | `string` | `""` | no |
 | <a name="input_spaces"></a> [spaces](#input\_spaces) | The list of CF space GUIDs to scrape. When provided variant will only consider apps in these spaces | `list(string)` | `[]` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.1.2"` | no |
