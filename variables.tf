@@ -96,6 +96,25 @@ variable "external_labels" {
 variable "remote_write_config" {
   type        = string
   description = "The Promethues remote write section to inject"
+  default     = ""
+}
+
+variable "mtls_private_key" {
+  type        = string
+  description = "Base64 encoded private key for prometheus mtls communication"
+  default     = ""
+}
+
+variable "mtls_cert" {
+  type        = string
+  description = "Base64 encoded certificate for prometheus mtls communication"
+  default     = ""
+}
+
+variable "remote_write_url" {
+  type        = string
+  description = "Remote write endpoint for prometheus tls communication"
+  default     = ""
 }
 
 variable "network_policies" {

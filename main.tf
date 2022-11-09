@@ -1,12 +1,17 @@
 locals {
-  empty_remote_write = yamlencode(jsondecode("{ \"remote_write\": null}"))
-  prometheus_routes  = var.prometheus_public_endpoints ? [cloudfoundry_route.prometheus.id, cloudfoundry_route.prometheus_internal.id] : [cloudfoundry_route.prometheus_internal.id]
-  postfix            = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
+  empty_remote_write  = yamlencode(jsondecode("{ \"remote_write\": null}"))
+  remote_write_config = var.mtls_private_key != "" ? local.remote_write_tls_config : (var.remote_write_config == "" ? local.empty_remote_write : var.remote_write_config)
+  mtls_env_variable   = var.mtls_private_key == "" ? {} : { "MTLS_PRIVATE_KEY" : "${var.mtls_private_key}", "MTLS_CERT" : "${var.mtls_cert}" }
+  command             = var.mtls_private_key == "" ? "echo $PROMETHEUS_CONFIG_BASE64|base64 -d > /sidecars/etc/prometheus.default.yml && supervisord --nodaemon --configuration /etc/supervisord.conf" : "echo $PROMETHEUS_CONFIG_BASE64|base64 -d > /sidecars/etc/prometheus.default.yml && echo $MTLS_CERT|base64 -d > /sidecars/etc/cert.crt && echo $MTLS_PRIVATE_KEY|base64 -d > /sidecars/etc/private.key && supervisord --nodaemon --configuration /etc/supervisord.conf"
+  prometheus_routes   = var.prometheus_public_endpoints ? [cloudfoundry_route.prometheus.id, cloudfoundry_route.prometheus_internal.id] : [cloudfoundry_route.prometheus_internal.id]
+  postfix             = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml", {
     alertmanagers       = var.alertmanagers_endpoints
-    remote_write_config = var.remote_write_config == "" ? local.empty_remote_write : var.remote_write_config
+    remote_write_config = local.remote_write_config
     external_labels     = var.external_labels
   })
+  remote_write_tls_config = templatefile("${path.module}/templates/remote_write_tls.yaml",
+  { remote_write_url = var.remote_write_url })
 }
 
 resource "random_id" "id" {
@@ -27,7 +32,7 @@ resource "cloudfoundry_app" "prometheus" {
     username = var.docker_username
     password = var.docker_password
   }
-  command = "echo $PROMETHEUS_CONFIG_BASE64|base64 -d > /sidecars/etc/prometheus.default.yml && supervisord --nodaemon --configuration /etc/supervisord.conf"
+  command = local.command
   environment = merge({
     PROMETHEUS_CONFIG_BASE64   = base64encode(local.prometheus_config)
     USERNAME                   = var.cf_functional_account.username
@@ -41,7 +46,7 @@ resource "cloudfoundry_app" "prometheus" {
     VARIANT_TENANTS            = join(",", var.tenants)
     VARIANT_SPACES             = join(",", var.spaces)
     VARIANT_RELOAD             = "true"
-  }, var.environment)
+  }, local.mtls_env_variable, var.environment)
 
   dynamic "routes" {
     for_each = local.prometheus_routes

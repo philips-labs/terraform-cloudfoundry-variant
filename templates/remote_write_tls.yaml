@@ -1,0 +1,5 @@
+remote_write:
+- url: ${remote_write_url}
+  tls_config:
+    cert_file: /sidecars/etc/cert.crt
+    key_file: /sidecars/etc/private.key
