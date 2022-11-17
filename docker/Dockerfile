@@ -4,7 +4,7 @@ FROM prom/prometheus:v2.40.1 AS prometheus
 FROM philipssoftware/variant:v0.2.1 AS variant
 
 ## Build final image
-FROM alpine:3.16.2
+FROM alpine:3.16.3
 LABEL maintainer="andy.lo-a-foe@philips.com"
 RUN apk add --no-cache supervisor jq curl && rm -rf /tmp/* /var/cache/apk/*
 RUN apk add --no-cache yq --repository http://dl-cdn.alpinelinux.org/alpine/edge/community
