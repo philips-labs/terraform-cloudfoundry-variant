@@ -9,6 +9,8 @@ locals {
     alertmanagers       = var.alertmanagers_endpoints
     remote_write_config = local.remote_write_config
     external_labels     = var.external_labels
+    scrape_interval     = var.prometheus_scrape_interval
+    evaluation_interval = var.prometheus_evaluation_interval
   })
   remote_write_tls_config = templatefile("${path.module}/templates/remote_write_tls.yaml",
   { remote_write_url = var.remote_write_url })

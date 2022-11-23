@@ -26,6 +26,22 @@ variable "prometheus_public_endpoints" {
   default     = false
 }
 
+variable "prometheus_scrape_interval" {
+  description = "prometheus scrape interval"
+  type        = string
+  default     = "15s"
+  validation {
+    condition     = can(regex("([[:digit:]]+y)|([[:digit:]]+s)|([[:digit:]]+m)|([[:digit:]]+h)|([[:digit:]]+w)", var.prometheus_scrape_interval))
+    error_message = "The prometheus_scrape_interval value must be of format 1d, 1h30m, 5m, 10s."
+  }
+}
+
+variable "prometheus_evaluation_interval" {
+  description = "prometheus rules evaluation interval"
+  type        = string
+  default     = "15s"
+}
+
 variable "environment" {
   type        = map(any)
   description = "Pass environment variable to the app"
