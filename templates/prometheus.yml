@@ -1,6 +1,6 @@
 # my global config
 global:
-swin  scrape_interval: ${scrape_interval} # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  scrape_interval: ${scrape_interval} # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: ${evaluation_interval} # Evaluate rules every 15 seconds. The default is every 1 minute.
   external_labels:
 %{ for k,v in external_labels ~}
