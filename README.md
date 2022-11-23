@@ -98,12 +98,4 @@ No modules.
 | <a name="output_postfix"></a> [postfix](#output\_postfix) | Cluster ID / Postfix of Prometheus deployment |
 | <a name="output_prometheus_app_id"></a> [prometheus\_app\_id](#output\_prometheus\_app\_id) | App id for Promethues |
 | <a name="output_prometheus_space_id"></a> [prometheus\_space\_id](#output\_prometheus\_space\_id) | Cloud foundry space ID of Prometheus |
-
-
-# Contact / Getting help
-
-Please post your questions on the HSDP Slack `#terraform` channel, or start a [discussion](https://github.com/philips-labs/terraform-cloudfoundry-variant/discussions)
-
-# License
-License is MIT
 <!-- END_TF_DOCS -->
