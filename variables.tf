@@ -30,8 +30,8 @@ variable "prometheus_scrape_interval" {
   description = "prometheus scrape interval"
   type        = string
   default     = "15s"
-    validation {
-    condition     =  can(regex("([[:digit:]]+y)|([[:digit:]]+s)|([[:digit:]]+m)|([[:digit:]]+h)|([[:digit:]]+w)", var.prometheus_scrape_interval))
+  validation {
+    condition     = can(regex("([[:digit:]]+y)|([[:digit:]]+s)|([[:digit:]]+m)|([[:digit:]]+h)|([[:digit:]]+w)", var.prometheus_scrape_interval))
     error_message = "The prometheus_scrape_interval value must be of format 1d, 1h30m, 5m, 10s."
   }
 }
