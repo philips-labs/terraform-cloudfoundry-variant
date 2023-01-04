@@ -34,7 +34,8 @@ resource "cloudfoundry_app" "prometheus" {
     username = var.docker_username
     password = var.docker_password
   }
-  command = local.command
+  strategy = var.strategy
+  command  = local.command
   environment = merge({
     PROMETHEUS_CONFIG_BASE64   = base64encode(local.prometheus_config)
     USERNAME                   = var.cf_functional_account.username

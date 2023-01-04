@@ -33,7 +33,7 @@ module "variant" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.14.2 |
+| <a name="requirement_cloudfoundry"></a> [cloudfoundry](#requirement\_cloudfoundry) | >= 0.50.4 |
 | <a name="requirement_hsdp"></a> [hsdp](#requirement\_hsdp) | >= 0.30.10 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 2.2.1 |
 
@@ -41,7 +41,7 @@ module "variant" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.14.2 |
+| <a name="provider_cloudfoundry"></a> [cloudfoundry](#provider\_cloudfoundry) | >= 0.50.4 |
 | <a name="provider_hsdp"></a> [hsdp](#provider\_hsdp) | >= 0.30.10 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 2.2.1 |
 
@@ -88,6 +88,7 @@ No modules.
 | <a name="input_remote_write_config"></a> [remote\_write\_config](#input\_remote\_write\_config) | The Promethues remote write section to inject | `string` | `""` | no |
 | <a name="input_remote_write_url"></a> [remote\_write\_url](#input\_remote\_write\_url) | Remote write endpoint for prometheus tls communication | `string` | `""` | no |
 | <a name="input_spaces"></a> [spaces](#input\_spaces) | The list of CF space GUIDs to scrape. When provided variant will only consider apps in these spaces | `list(string)` | `[]` | no |
+| <a name="input_strategy"></a> [strategy](#input\_strategy) | Deployment strategy to use | `string` | `"rolling"` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
 | <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.2.2"` | no |
 

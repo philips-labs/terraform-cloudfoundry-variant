@@ -142,3 +142,9 @@ variable "network_policies" {
   }))
   default = []
 }
+
+variable "strategy" {
+  description = "Deployment strategy to use"
+  type        = string
+  default     = "rolling"
+}
