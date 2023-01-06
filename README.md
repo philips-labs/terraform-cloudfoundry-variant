@@ -90,7 +90,7 @@ No modules.
 | <a name="input_spaces"></a> [spaces](#input\_spaces) | The list of CF space GUIDs to scrape. When provided variant will only consider apps in these spaces | `list(string)` | `[]` | no |
 | <a name="input_strategy"></a> [strategy](#input\_strategy) | Deployment strategy to use | `string` | `"rolling"` | no |
 | <a name="input_tenants"></a> [tenants](#input\_tenants) | The list of tenants to scrape. When an app does not specify tenant then 'default' is used | `list(string)` | <pre>[<br>  "default"<br>]</pre> | no |
-| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.2.3"` | no |
+| <a name="input_variant_image"></a> [variant\_image](#input\_variant\_image) | Image to use for Thanos app. Use a v* tagged version to prevent automatic updates | `string` | `"philipslabs/cf-variant:v6.3.0"` | no |
 
 ## Outputs
 
