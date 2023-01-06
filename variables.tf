@@ -16,7 +16,7 @@ variable "name_postfix" {
 
 variable "variant_image" {
   description = "Image to use for Thanos app. Use a v* tagged version to prevent automatic updates"
-  default     = "philipslabs/cf-variant:v6.2.3"
+  default     = "philipslabs/cf-variant:v6.3.0"
   type        = string
 }
 
