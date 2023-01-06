@@ -1,7 +1,7 @@
 FROM prom/prometheus:v2.41.0 AS prometheus
 
 ## Variant
-FROM philipssoftware/variant:v0.2.1 AS variant
+FROM philipssoftware/variant:v0.3.0 AS variant
 
 ## Build final image
 FROM alpine:3.17.0
