@@ -1,4 +1,4 @@
-FROM prom/prometheus:v2.43.1 AS prometheus
+FROM prom/prometheus:v2.46.0 AS prometheus
 
 ## Variant
 FROM philipssoftware/variant:v0.3.0 AS variant
